@@ -28,7 +28,7 @@ def login(host, port, username, password, tout):
         #attempt connection
         client.connect(host, port=port, username=username, password=password, timeout=int(tout))
         
-        pwd = usr + ":" + pwd
+        pwd = username + ":" + password
     except:
         pass
     finally:
@@ -69,11 +69,15 @@ __\ \__\ \|  _  | | |___| | | (_| | (__|   <  __/ |
                     
                     # if format is correct...
                     if ':' in line:
-                        username, password = line.split(':', 1)
+                        try:
+                            username, password = line.split(':', 1)
                         
-                        # add to dictionary
-                        ssh_creds.append((username, password))
-                        
+                            # add to dictionary
+                            ssh_creds.append((username, password))
+                        except:
+                            # ignore bad credential format
+                            pass
+                            
             # ensure dictionary isnt empty
             if not ssh_creds:
                 err = "No valid credentials imported from list!"
