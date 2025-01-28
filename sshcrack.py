@@ -106,7 +106,8 @@ __\ \__\ \|  _  | | |___| | | (_| | (__|   <  __/ |
             x.start()
             
             # millisecond pause
-            time.sleep(wait / 1000)
+            if wait != 0:
+                time.sleep(wait / 1000)
         
             if pwd:
                 print(f'\r\nLogin successful @ {pwd}\r\n')
